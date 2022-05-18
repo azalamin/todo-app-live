@@ -11,7 +11,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
         <div>
-          <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand text-success fw-bold" to="/">
             Navbar
           </Link>
         </div>

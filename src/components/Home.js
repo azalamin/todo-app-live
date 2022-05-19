@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { toast } from "react-toastify";
+import Task from "./Task";
 
 const Home = () => {
+  const [tasks, setTasks] = useState([]);
+  const [fetchData, setFetchData] = useState({});
+
+  useEffect(() => {
+    fetch("http://localhost:5000/task")
+      .then((res) => res.json())
+      .then((data) => {
+        setTasks(data);
+      });
+  }, [fetchData]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const taskName = event.target.name.value;
     const description = event.target.description.value;
-    const task = { taskName, description };
+    const task = { taskName, description, isCompleted: false };
     fetch("http://localhost:5000/task", {
       method: "POST",
       headers: {
@@ -17,8 +30,15 @@ const Home = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        if (data?.insertedId) {
+          toast.success("Task added");
+          setFetchData(data);
+        } else {
+          toast.error("Failed to add task");
+        }
       });
   };
+  
   return (
     <div className="container mt-5">
       <div className="row">
@@ -53,16 +73,13 @@ const Home = () => {
           </Form>
         </div>
         <div className="col-md-6 p-3">
-          <div className="card">
-            <div className="card-body">
-              <h4>Task Name: Hello</h4>
-              <p>Description: </p>
-              <div className="text-center">
-                <button className="btn btn-success me-3">Completed</button>
-                <button className="btn btn-danger">Delete</button>
-              </div>
-            </div>
-          </div>
+          {tasks.map((task) => (
+            <Task
+              setFetchData={setFetchData}
+              key={task?._id}
+              task={task}
+            ></Task>
+          ))}
         </div>
       </div>
     </div>

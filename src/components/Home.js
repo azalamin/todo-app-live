@@ -29,10 +29,10 @@ const Home = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data?.insertedId) {
           toast.success("Task added");
           setFetchData(data);
+          event.target.reset();
         } else {
           toast.error("Failed to add task");
         }

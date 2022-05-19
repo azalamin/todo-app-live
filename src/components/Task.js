@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 const Task = ({ task, setFetchData }) => {
   const handleCompleted = () => {
-    fetch(`http://localhost:5000/task/${task?._id}`, {
+    fetch(`https://todo-app360.herokuapp.com/task/${task?._id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -19,7 +19,7 @@ const Task = ({ task, setFetchData }) => {
   };
 
   const handleDelete = () => {
-    fetch(`http://localhost:5000/task/${task?._id}`, {
+    fetch(`https://todo-app360.herokuapp.com/task/${task?._id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",

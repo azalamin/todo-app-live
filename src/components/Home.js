@@ -8,7 +8,7 @@ const Home = () => {
   const [fetchData, setFetchData] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:5000/task")
+    fetch("https://todo-app360.herokuapp.com/task")
       .then((res) => res.json())
       .then((data) => {
         setTasks(data);
@@ -20,7 +20,7 @@ const Home = () => {
     const taskName = event.target.name.value;
     const description = event.target.description.value;
     const task = { taskName, description, isCompleted: false };
-    fetch("http://localhost:5000/task", {
+    fetch("https://todo-app360.herokuapp.com/task", {
       method: "POST",
       headers: {
         "content-type": "application/json",
